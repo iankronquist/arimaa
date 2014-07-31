@@ -6,10 +6,10 @@ var expect = require('chai').expect;
 var Board = require('../src/board');
 var {range} = require('../src/utils');
 
-describe('Board', function() {
+describe('Board', () => {
 
-  describe('constructor', function() {
-    it('should have state with square codes', function() {
+  describe('constructor', () => {
+    it('should have state with square codes', () => {
       var b = new Board();
       expect(_.pluck(b.state.a, 'code')).to.deep.equal([for (n of range(1, 9)) 'a' + n]);
       expect(_.pluck(b.state.b, 'code')).to.deep.equal([for (n of range(1, 9)) 'b' + n]);
@@ -17,8 +17,8 @@ describe('Board', function() {
   });
 
 
-  describe('::iterate', function() {
-    it('should syncronously iterate over the entire board', function() {
+  describe('::iterate', () => {
+    it('should syncronously iterate over the entire board', () => {
       var b = new Board({}, []);
       var count = 0;
       b.iterate(function() {
@@ -29,18 +29,18 @@ describe('Board', function() {
   });
 
 
-  describe('fromGame', function() {
+  describe('fromGame', () => {
 
-    describe('artificial tests', function() {
+    describe('artificial tests', () => {
 
-      it('should parse basic metadata', function() {
+      it('should parse basic metadata', () => {
         var b = Board.fromGame('GameId: 42\nEvent: Test game\n');
         expect(b.meta).to.deep.equal({GameId: 42, Event: 'Test game'});
       });
 
     });
 
-    describe('game 100 tests', function() {
+    describe('game 100 tests', () => {
 
       var game100Text;
       var game100;
@@ -60,7 +60,7 @@ describe('Board', function() {
         game100 = Board.fromGame(game100Text);
       });
 
-      it('should parse real metadata', function() {
+      it('should parse real metadata', () => {
         expect(game100.meta).to.deep.equal({
           GameId: 100,
           Event: 'Casual game',
@@ -76,7 +76,7 @@ describe('Board', function() {
         });
       });
 
-      it('should have the right number of moves', function() {
+      it('should have the right number of moves', () => {
         expect(game100.moves.length).to.equal(56);
       });
 
@@ -90,14 +90,14 @@ describe('Board', function() {
        * 5:  3b dg7s dg6w df6x md7s rc6s
        */
 
-      it('should have the right move ids', function() {
+      it('should have the right move ids', () => {
         expect(game100.moves[0].id).to.equal('1w');
         expect(game100.moves[1].id).to.equal('1b');
         expect(game100.moves[2].id).to.equal('2w');
         expect(game100.moves[3].id).to.equal('2b');
       });
 
-      it('should have the right number of move steps', function() {
+      it('should have the right number of move steps', () => {
         expect(game100.moves[0].steps.length).to.equal(16);
         expect(game100.moves[1].steps.length).to.equal(16);
         expect(game100.moves[2].steps.length).to.equal(3);
@@ -106,28 +106,28 @@ describe('Board', function() {
         expect(game100.moves[5].steps.length).to.equal(5);
       });
 
-      it('should have the right piece codes', function() {
+      it('should have the right piece codes', () => {
         expect(_.pluck(game100.moves[2].steps, 'pieceCode')).to.deep.equal(['H', 'M', 'R']);
         expect(_.pluck(game100.moves[3].steps, 'pieceCode')).to.deep.equal(['d', 'h', 'r', 'r', 'r']);
         expect(_.pluck(game100.moves[4].steps, 'pieceCode')).to.deep.equal(['H', 'H', 'E', 'R']);
         expect(_.pluck(game100.moves[5].steps, 'pieceCode')).to.deep.equal(['d', 'd', 'd', 'm', 'r']);
       });
 
-      it('should have the right starting positions', function() {
+      it('should have the right starting positions', () => {
         expect(_.pluck(game100.moves[2].steps, 'from')).to.deep.equal(['g2', 'd2', 'h2']);
         expect(_.pluck(game100.moves[3].steps, 'from')).to.deep.equal(['b7', 'a7', 'f7', 'f6', 'c7']);
         expect(_.pluck(game100.moves[4].steps, 'from')).to.deep.equal(['g3', 'b2', 'e2', 'h3']);
         expect(_.pluck(game100.moves[5].steps, 'from')).to.deep.equal(['g7', 'g6', 'f6', 'd7', 'c6']);
       });
 
-      it('should have the right directions', function() {
+      it('should have the right directions', () => {
         expect(_.pluck(game100.moves[2].steps, 'direction')).to.deep.equal(['n', 'n', 'n']);
         expect(_.pluck(game100.moves[3].steps, 'direction')).to.deep.equal(['s', 's', 's', 'x', 's']);
         expect(_.pluck(game100.moves[4].steps, 'direction')).to.deep.equal(['s', 'n', 'n', 'n']);
         expect(_.pluck(game100.moves[5].steps, 'direction')).to.deep.equal(['s', 'w', 'x', 's', 's']);
       });
 
-      it('should have the right destination positions', function() {
+      it('should have the right destination positions', () => {
         expect(_.pluck(game100.moves[2].steps, 'to')).to.deep.equal(['g3', 'd3', 'h3']);
         expect(_.pluck(game100.moves[3].steps, 'to')).to.deep.equal(['b6', 'a6', 'f6', null, 'c6']);
         expect(_.pluck(game100.moves[4].steps, 'to')).to.deep.equal(['g2', 'b3', 'e3', 'h4']);
