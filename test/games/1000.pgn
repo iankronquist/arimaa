@@ -1,0 +1,68 @@
+GameId: 100
+Event: Casual game
+Site: Over the Net
+Date: 2003.01.26
+White: bot_Occam (Don Dailey)
+Black: bot_ShallowBlue (Omar Syed)
+Result: 0-1
+Reason: Goal
+ResultCode: b
+ReasonCode: g
+PlyCount: 28
+
+1w Ee2 Md2 Da1 Hb2 Dh1 Hg2 Cf1 Cc1 Rb1 Rd1 Re1 Rg1 Ra2 Rc2 Rf2 Rh2
+1b ee7 md7 ha7 hh7 db7 dg7 cf8 cc8 rc7 rf7 ra8 rb8 rd8 re8 rg8 rh8
+2w Hg2n Md2n Rh2n
+2b db7s ha7s rf7s rf6x rc7s
+3w Hg3s Hb2n Ee2n Rh3n
+3b dg7s dg6w df6x md7s rc6s
+4w Hb3n Hg2e Md3n Rh4n
+4b hh7s rg8s Rh5s hh6s
+5w Md4w Rc2w rc5e Mc4n
+5b ha6s rh8s Rh4s hh5s
+6w Hb4w Ee3e rd5s Mc5e
+6b rd8s md6w Rh3w hh4s
+7w Re1n Re2n rd4w Md5s
+7b cc8e rd7w Rg3s hh3w
+8w Hh2n rc4s rc3x Md4w Mc4s Mc3x
+8b mc6s mc5s cd8w rh7s
+9w Hh3s Ha4s Rb2n Re3n
+9b ee7s mc4w Rb3e Rc3x mb4s
+10w hg3e Ef3e Rb1n Re4n
+10b rh6w Re5e ee6s
+11w Rd1n Rd2e hh3n Eg3e
+11b cc8e ha5s Rf5s ee5e
+12w Re2w Rf2n hh4n Eh3n
+12b ra8s rb8e Rf4e Rf3x ef5s
+13w Hh2n Cc1e Da1e Rg4n
+13b ef4e ra7e Rg5w eg4n
+14w Cf1w Hh3w hh5n Eh4n
+14b Rb2e mb3s Rf5s eg5w
+15w Eh5w Hg3e rg6w Eg5n
+15b Rf4s Rf3x ef5s rf6x cf8e ef4s ef3x
+16w rg7e Eg6n Eg7s cg8s
+16b db6w cg7n Rc2s mb2e
+17w Eg6n hh6w rh7n Eg7e
+17b hg6w hf6x da6n Rd2e mc2e
+18w Ha3e Hh3w Db1w Re2n
+18b ha4s md2n Re3n md3e
+19w Eh7w Ce1e cg8w Eg7n
+19b Ra2e ha3s Re4n me3n
+20w Rg2w Hg3w rh8s Eg8e
+20b re8s re7w Re5e me4n
+21w Rc1n Rc2e rh7w Eh8s
+21b rc7s rc6x cd8e Rf5n Rf6x me5e
+22w Hb3e Hc3x Rd2n rg7s Eh7w
+22b rc8w cf8e mf5n rg6s mf6x
+23w Cd1n Eg7s rg5w Eg6s
+23b rd7s rd6s rd5e rf5s
+24w Cd2e Cf1w rf4e Hf3n
+24b Rb2s ha2e hb2e re5s
+25w Dh1n Dh2w rg4s Hf4e
+25b hc2e cg8e da7s re4s
+26w Rb1e Eg5n rg3e Dg2n
+26b da6e rb7w Rd3n hd2n
+27w Eg6w Ef6x Da1n rh3s Dg3e
+27b db6w Rd4n hd3n
+28w Da2e Db2e rh2s Dh3s
+28b
