@@ -1,4 +1,5 @@
 {
+  "esnext": true,
   "globals": {
     "it": false,
     "describe": false

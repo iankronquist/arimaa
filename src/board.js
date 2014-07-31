@@ -21,7 +21,7 @@ function Board(meta, moves) {
   }
 }
 
-Board.prototype._simulate = function() {
+Board.prototype._simulate = function(moves) {
 };
 
 Board.prototype.iterate = function(cb) {

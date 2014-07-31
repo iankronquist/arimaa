@@ -16,3 +16,13 @@ module.exports.dirFromSquare = function(square, direction) {
   }
   return newCol + newRow;
 };
+
+module.exports.range = function*(start, end) {
+  if (end === undefined) {
+    end = start;
+    start = 0;
+  }
+  for (var i = start; i < end; i++) {
+    yield i;
+  }
+};

@@ -3,15 +3,16 @@ var _ = require('lodash');
 
 var expect = require('chai').expect;
 
-var Board = require('../lib/board');
+var Board = require('../src/board');
+var {range} = require('../src/utils');
 
 describe('Board', function() {
 
   describe('constructor', function() {
     it('should have state with square codes', function() {
       var b = new Board();
-      expect(_.pluck(b.state.a, 'code')).to.deep.equal(['a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7', 'a8']);
-      expect(_.pluck(b.state.b, 'code')).to.deep.equal(['b1', 'b2', 'b3', 'b4', 'b5', 'b6', 'b7', 'b8']);
+      expect(_.pluck(b.state.a, 'code')).to.deep.equal([for (n of range(1, 9)) 'a' + n]);
+      expect(_.pluck(b.state.b, 'code')).to.deep.equal([for (n of range(1, 9)) 'b' + n]);
     });
   });
 

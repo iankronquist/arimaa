@@ -19,7 +19,11 @@
   "homepage": "https://github.com/mythmon/arimaa",
   "devDependencies": {
     "chai": "^1.9.1",
-    "mocha": "^1.21.3"
+    "gulp": "^3.8.6",
+    "gulp-mocha": "^0.5.2",
+    "gulp-traceur": "^0.9.0",
+    "mocha": "^1.21.3",
+    "traceur": "0.0.52"
   },
   "dependencies": {
     "lodash": "^2.4.1"
