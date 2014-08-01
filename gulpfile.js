@@ -17,5 +17,9 @@ gulp.task('build.tests', function() {
 
 gulp.task('test', ['build', 'build.tests'], function() {
   return gulp.src('build/test/**/*.js')
-    .pipe(mocha());
+    .pipe(mocha({reporter: 'min'}));
+});
+
+gulp.task('test.watch', ['build', 'build.tests', 'test'], function() {
+  return gulp.watch(['src/**/*.js', 'test/**/*.js'], ['build', 'build.tests', 'test'])
 });
