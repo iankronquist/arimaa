@@ -26,6 +26,17 @@ describe('Board', () => {
       });
       expect(count).to.equal(64);
     });
+
+    it('should iterate in row major order', () => {
+      var b = new Board();
+      var expected = ['a1', 'b1', 'c1'];
+      b.iterate((square) => {
+        var code = expected.shift();
+        if (code) {
+          expect(square.code).to.equal(code);
+        }
+      });
+    });
   });
 
 

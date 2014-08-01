@@ -26,10 +26,10 @@ Board.prototype._simulate = function(moves) {
 
 Board.prototype.iterate = function(cb) {
   var cols = 'abcdefgh';
-  var col;
-  for (var i = 0; i < cols.length; i++) {
-    col = cols[i];
-    for (var row = 1; row <= 8; row++) {
+  var i, row, col;
+  for (row = 1; row <= 8; row++) {
+    for (i = 0; i < cols.length; i++) {
+      col = cols[i];
       cb(this.state[col][row]);
     }
   }
