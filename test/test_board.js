@@ -40,6 +40,30 @@ describe('Board', () => {
   });
 
 
+	describe('::_simulate', () => {
+		describe('artificial tests', () => {
+			it('should place the pieces',  () => {
+				var firstMove = ['Db1', 'Ra1', 'Rc1', 'Rd1', 'Re1', 'Rf1', 'Dg1',
+					'Rh1', 'Ha2', 'Rb2', 'Cc2', 'Ed2', 'Me2', 'Cf2', 'Rg2', 'Hh2'];
+				var expectedDataA = ['R', 'D', 'R', 'R', 'R', 'R', 'R', 'D'];
+				var expectedDataB = ['R', 'G', 'R', 'C', 'E', 'M', 'C', 'H'];
+				var b = new Board({}, firstMove);
+				b._simulate();
+				expect(_.pluck(b.state.a, 'piece')).to.deep.equal(expectedDataA);
+				expect(_.pluck(b.state.b, 'piece')).to.deep.equal(expectedDataB);
+			});
+
+			it('should increment _simulatedUntil', () => {
+				var firstMove = ['Db1', 'Ra1', 'Rc1', 'Rd1', 'Re1', 'Rf1', 'Dg1',
+					'Rh1', 'Ha2', 'Rb2', 'Cc2', 'Ed2', 'Me2', 'Cf2', 'Rg2', 'Hh2'];
+				var b = new Board({}, firstMove);
+				b._simulate();
+				expect(b._simulatedUntil).to.equal(1);
+			});
+		});
+	});
+
+
   describe('fromGame', () => {
 
     describe('artificial tests', () => {
