@@ -21,5 +21,5 @@ gulp.task('test', ['build', 'build.tests'], function() {
 });
 
 gulp.task('test.watch', ['build', 'build.tests', 'test'], function() {
-  return gulp.watch(['src/**/*.js', 'test/**/*.js'], ['build', 'build.tests', 'test'])
+  return gulp.watch(['src/**/*.js', 'test/**/*.js'], ['test']);
 });

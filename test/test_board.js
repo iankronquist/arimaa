@@ -40,6 +40,48 @@ describe('Board', () => {
   });
 
 
+  describe('::at', () => {
+    it('should return the square asked for', () => {
+      var b = new Board();
+      expect(b.at('a1')).to.deep.equal({
+        code: 'a1',
+        piece: null,
+      });
+    });
+
+    it('should throw an error if the squareCode is invalid', () => {
+      var b = new Board();
+      expect(b.at.bind(b, 'a9')).to.throw(RangeError);
+      expect(b.at.bind(b, null)).to.throw(RangeError);
+      expect(b.at.bind(b, 'a')).to.throw(RangeError);
+      expect(b.at.bind(b, '9')).to.throw(RangeError);
+      expect(b.at.bind(b, ['a', 9])).to.throw(RangeError);
+      expect(b.at.bind(b, 9)).to.throw(RangeError);
+    });
+  });
+
+
+  describe('::_simulate', () => {
+    it('should simulate placing pieces from the first turn', () => {
+      // One move for white, placing the pieces.
+      var b = Board.fromGame('\n1w 0a1 1b1 2c1 3d1 4e1 5f1 6g1 7h1 8a2 9b2 Ac2 Bd2 Ce2 Df2 Eg2 Fh2');
+      var squares = [for (row of [1, 2]) for (col of range('a', 'h', true)) col + row];
+      var pieces = [for (square of squares) b.at(square).piece].join('');
+      expect(pieces).to.deep.equal('0123456789ABCDEF');
+    });
+
+    it('should simulate both of the placement turns', () => {
+      // One move for both sides, placing the pieces.
+      var b = Board.fromGame('\n1w Ee2 Md2 Da1 Hb2 Dh1 Hg2 Cf1 Cc1 Rb1 Rd1 Re1 Rg1 Ra2 Rc2 Rf2 Rh2\n' +
+                               '1b ee7 md7 ha7 hh7 db7 dg7 cf8 cc8 rc7 rf7 ra8 rb8 rd8 re8 rg8 rh8');
+      // pieces that don't have a square won't contribute to the string, since they have piece=null
+      var squares = [for (row of range(1, 8, true)) for (col of range('a', 'h', true)) col + row];
+      var pieces = [for (square of squares) b.at(square).piece].join('');
+      expect(pieces).to.deep.equal('DRCRRCRDRHRMERHRhdrmerdhrrcrrcrr');
+    });
+  });
+
+
   describe('fromGame', () => {
 
     describe('artificial tests', () => {
@@ -118,10 +160,10 @@ describe('Board', () => {
       });
 
       it('should have the right piece codes', () => {
-        expect(_.pluck(game100.moves[2].steps, 'pieceCode')).to.deep.equal(['H', 'M', 'R']);
-        expect(_.pluck(game100.moves[3].steps, 'pieceCode')).to.deep.equal(['d', 'h', 'r', 'r', 'r']);
-        expect(_.pluck(game100.moves[4].steps, 'pieceCode')).to.deep.equal(['H', 'H', 'E', 'R']);
-        expect(_.pluck(game100.moves[5].steps, 'pieceCode')).to.deep.equal(['d', 'd', 'd', 'm', 'r']);
+        expect(_.pluck(game100.moves[2].steps, 'piece')).to.deep.equal(['H', 'M', 'R']);
+        expect(_.pluck(game100.moves[3].steps, 'piece')).to.deep.equal(['d', 'h', 'r', 'r', 'r']);
+        expect(_.pluck(game100.moves[4].steps, 'piece')).to.deep.equal(['H', 'H', 'E', 'R']);
+        expect(_.pluck(game100.moves[5].steps, 'piece')).to.deep.equal(['d', 'd', 'd', 'm', 'r']);
       });
 
       it('should have the right starting positions', () => {

@@ -2,8 +2,8 @@ var utils = require('./utils');
 
 
 function Board(meta, moves) {
-  this.meta = meta;
-  this.moves = moves;
+  this.meta = meta || {};
+  this.moves = moves || [];
   this._simulatedUntil = 0;
   this.state = {};
 
@@ -19,9 +19,21 @@ function Board(meta, moves) {
       };
     }
   }
+
+  this._simulate();
 }
 
-Board.prototype._simulate = function(moves) {
+Board.prototype._simulate = function() {
+  for (var move of this.moves) {
+    for (var step of move.steps) {
+      if (step.from === null && step.to !== null && step.direction === null) {
+        this.at(step.to).piece = step.piece;
+      } else {
+        //throw new Error("Unknown kind of step: " + JSON.stringify(step));
+        console.log('unknown step: ' + JSON.stringify(step));
+      }
+    }
+ }
 };
 
 Board.prototype.iterate = function(cb) {
@@ -34,6 +46,15 @@ Board.prototype.iterate = function(cb) {
     }
   }
 };
+
+Board.prototype.at = function(squareCode) {
+  if (!squareCode || !squareCode.match || !squareCode.match(/[a-h][1-8]/)) {
+    throw new RangeError('invalid square code given: "' + squareCode + '"');
+  }
+  var col = squareCode[0];
+  var row = squareCode[1];
+  return this.state[col][row];
+}
 
 Board.fromGame = function(gameString) {
   var lines = gameString.split('\n');
@@ -64,7 +85,7 @@ Board.fromGame = function(gameString) {
     parts = lines[i].split(' ');
     var stepStrings = parts.slice(1);
     var steps = parts.slice(1).map(function(stepString) {
-      var pieceCode = stepString[0];
+      var piece = stepString[0];
       var from = stepString.slice(1, 3);
       var direction = stepString[3] || null;
       var to;
@@ -75,7 +96,7 @@ Board.fromGame = function(gameString) {
         to = utils.dirFromSquare(from, direction);
       }
       return {
-        pieceCode: pieceCode,
+        piece: piece,
         from: from,
         to: to,
         direction: direction,

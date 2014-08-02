@@ -41,5 +41,21 @@ describe('utils', () => {
       }
       expect(acc).to.deep.equal([0, 1, 2, 3, 4]);
     });
+
+    it('should be inclusive if the third param is true', () => {
+      var acc = [];
+      for (var n of utils.range(0, 5, true)) {
+        acc.push(n);
+      }
+      expect(acc).to.deep.equal([0, 1, 2, 3, 4, 5]);
+    });
+
+    it('should work with characters', () => {
+      var acc = '';
+      for (var c of utils.range('a', 'e', true)) {
+        acc += c;
+      }
+      expect(acc).to.equal('abcde');
+    });
   });
 });

@@ -17,12 +17,21 @@ module.exports.dirFromSquare = function(square, direction) {
   return newCol + newRow;
 };
 
-module.exports.range = function*(start, end) {
+module.exports.range = function*(start, end, oneMore) {
+  var transform = (n) => n;
+  if (typeof start === 'string') {
+    transform = String.fromCharCode;
+    start = start.charCodeAt(0);
+    end = end.charCodeAt(0);
+  }
   if (end === undefined) {
     end = start;
     start = 0;
   }
+  if (oneMore) {
+    end += 1;
+  }
   for (var i = start; i < end; i++) {
-    yield i;
+    yield transform(i);
   }
 };
