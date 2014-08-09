@@ -37,6 +37,15 @@ describe('Board', () => {
         }
       });
     });
+
+    it('should pass indexes as the second argument', () => {
+      var b = new Board();
+      var count = 0;
+      b.iterate((_, i) => {
+        expect(i).to.equal(count);
+        count++;
+      });
+    });
   });
 
 
@@ -57,6 +66,21 @@ describe('Board', () => {
       expect(b.at.bind(b, '9')).to.throw(RangeError);
       expect(b.at.bind(b, ['a', 9])).to.throw(RangeError);
       expect(b.at.bind(b, 9)).to.throw(RangeError);
+    });
+
+    it('should set a square if passed two arguments', () => {
+      var b = new Board();
+      expect(b.at('a1').piece).to.equal(null);
+      b.at('a1', 'e');
+      expect(b.at('a1').piece).to.equal('e');
+    });
+
+    it('should be able to set null', () => {
+      var b = new Board();
+      b.at('a1', 'e');
+      expect(b.at('a1').piece).to.equal('e');
+      b.at('a1', null);
+      expect(b.at('a1').piece).to.equal(null);
     });
   });
 
@@ -79,8 +103,29 @@ describe('Board', () => {
       var pieces = [for (square of squares) b.at(square).piece].join('');
       expect(pieces).to.deep.equal('DRCRRCRDRHRMERHRhdrmerdhrrcrrcrr');
     });
-  });
 
+    it('should simulate pieces moving', () => {
+      // Place a piece in the middle, and then move it north.
+      var b = Board.fromGame('\n1w Rd4 Ce4 Dd3 He3\n' + '1b\n' +
+                             '2w Rd4n Re4e Dd3w He3s');
+      expect(b.at('d4').piece).to.be.null;
+      expect(b.at('e4').piece).to.be.null;
+      expect(b.at('d3').piece).to.be.null;
+      expect(b.at('e3').piece).to.be.null;
+
+      expect(b.at('d5').piece).to.equal('R');
+      expect(b.at('f4').piece).to.equal('C');
+      expect(b.at('c3').piece).to.equal('D');
+      expect(b.at('e2').piece).to.equal('H');
+    });
+
+    it('should simulate a piece being captured', () => {
+      var b = Board.fromGame('\n1w Rc2\n' + '1b\n' +
+                             '2w Rc2n Rc3x');
+      expect(b.at('c2').piece).to.be.null;
+      expect(b.at('c3').piece).to.be.null;
+    });
+  });
 
   describe('fromGame', () => {
 

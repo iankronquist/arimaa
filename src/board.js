@@ -26,11 +26,19 @@ function Board(meta, moves) {
 Board.prototype._simulate = function() {
   for (var move of this.moves) {
     for (var step of move.steps) {
-      if (step.from === null && step.to !== null && step.direction === null) {
+      if (!step.from && step.to && !step.direction) {
+        // placement
         this.at(step.to).piece = step.piece;
+      } else if (step.from && step.to && 'nsew'.indexOf(step.direction) !== -1) {
+        // Move
+        var piece = this.at(step.from).piece;
+        this.at(step.to, piece);
+        this.at(step.from, null);
+      } else if (step.from && !step.to && step.direction === 'x') {
+        // Capture
+        this.at(step.from, null);
       } else {
-        //throw new Error("Unknown kind of step: " + JSON.stringify(step));
-        console.log('unknown step: ' + JSON.stringify(step));
+        throw new Error("Unknown kind of step: " + JSON.stringify(step));
       }
     }
  }
@@ -39,21 +47,29 @@ Board.prototype._simulate = function() {
 Board.prototype.iterate = function(cb) {
   var cols = 'abcdefgh';
   var i, row, col;
+  var count = 0;
   for (row = 1; row <= 8; row++) {
     for (i = 0; i < cols.length; i++) {
       col = cols[i];
-      cb(this.state[col][row]);
+      cb(this.state[col][row], count++);
     }
   }
 };
 
-Board.prototype.at = function(squareCode) {
+Board.prototype.at = function(squareCode, newPiece) {
   if (!squareCode || !squareCode.match || !squareCode.match(/[a-h][1-8]/)) {
     throw new RangeError('invalid square code given: "' + squareCode + '"');
   }
   var col = squareCode[0];
   var row = squareCode[1];
-  return this.state[col][row];
+  var square = this.state[col][row];
+  if (newPiece === undefined) {
+    // getter
+    return square;
+  } else {
+    // setter
+    square.piece = newPiece;
+  }
 }
 
 Board.fromGame = function(gameString) {
