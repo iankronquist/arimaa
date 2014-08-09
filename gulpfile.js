@@ -1,3 +1,5 @@
+var nomnom = require('nomnom');
+
 var gulp = require('gulp');
 var traceur = require('gulp-traceur');
 var mocha = require('gulp-mocha');
@@ -16,10 +18,19 @@ gulp.task('build.tests', function() {
 });
 
 gulp.task('test', ['build', 'build.tests'], function() {
+  var cli = nomnom
+    .option('grep', {})
+    .parse();
+  var mochaOpts = {};
+  if (cli.grep) {
+    mochaOpts.grep = cli.grep;
+  }
   return gulp.src('build/test/**/*.js')
-    .pipe(mocha());
+    .pipe(mocha(mochaOpts));
 });
 
-gulp.task('test.watch', ['build', 'build.tests', 'test'], function() {
+gulp.task('test.watch', [], function() {
+  // Run the tests here instead of as a dependency so them failing doesn't stop the watch.
+  gulp.run('test');
   return gulp.watch(['src/**/*.js', 'test/**/*.js'], ['test']);
 });
